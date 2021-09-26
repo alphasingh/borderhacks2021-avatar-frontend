@@ -17,7 +17,7 @@ export default function ProductHero() {
       }}
     >
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Upgrade your Sundays
+        Help us choose the quality data!
       </Typography>
       <Typography
         color="inherit"

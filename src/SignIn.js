@@ -7,13 +7,13 @@ import Typography from './modules/components/Typography';
 import AppFooter from './modules/views/AppFooter';
 import AppAppBar from './modules/views/AppAppBar';
 import AppForm from './modules/views/AppForm';
-import { email, required } from './modules/form/validation';
-import RFTextField from './modules/form/RFTextField';
+import { required } from './modules/form/validation';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
 import {Link as Direct, useHistory} from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 
 function SignIn() {
   const [email, setEmailValue] = useState('');
@@ -32,7 +32,6 @@ function SignIn() {
         errors.email = emailError;
       }
     }
-
     return errors;
   };
 
@@ -41,7 +40,7 @@ function SignIn() {
     try{
       setSent(true);
       await signInWithEmailAndPassword(auth,email, password);
-      history.push('/');
+      history.push('/dashboard');
     }
     catch(e) {
     alert('Email or password is wrong! Try Again');
@@ -55,7 +54,7 @@ function SignIn() {
     const provider = new GoogleAuthProvider();
     try{
      await signInWithPopup(auth, provider);
-     history.push('/');
+     history.push('/dashboard');
     }
     catch(e){
       alert(e);

@@ -8,10 +8,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import AppAppBar from './modules/views/AppAppBar';
+import AppBarDashboard from './modules/views/AppBarDashboard';
 import {Link} from 'react-router-dom';
+import StarIcon from '@mui/icons-material/Star';
 
-const style = {
+const style = { 
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -22,21 +23,18 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
+ 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
-
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
   return (
       <>
-    <AppAppBar style={{color:'black'}}/> 
+    <AppBarDashboard /> 
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {Array.from(Array(6)).map((_, index) => (
@@ -59,10 +57,13 @@ export default function Dashboard() {
           {'"a benevolent smile"'}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions style= { {position:"relative"}}>
         <Link to={`/dataset/${1}`} style={ {textDecoration: 'none'} }>
           <Button variant="outlined">Explore More</Button>
         </Link>
+        <Typography style={ {position: "absolute", right: "10px" } }>
+          <StarIcon/> 4.5
+        </Typography>
       </CardActions>
     </Card>
             </Item>
