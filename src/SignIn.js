@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -7,15 +7,15 @@ import Typography from './modules/components/Typography';
 import AppFooter from './modules/views/AppFooter';
 import AppAppBar from './modules/views/AppAppBar';
 import AppForm from './modules/views/AppForm';
-import { email, required } from './modules/form/validation';
-import RFTextField from './modules/form/RFTextField';
+import { required } from './modules/form/validation';
 import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
-import {Link as Direct, useHistory} from 'react-router-dom';
+import { Link as Direct, useHistory } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-function SignIn() {
+
+function SignIn({ fetchDatasets }) {
   const [email, setEmailValue] = useState('');
   const [password, setPasswordValue] = useState('');
   const [sent, setSent] = useState(false);
@@ -32,36 +32,38 @@ function SignIn() {
         errors.email = emailError;
       }
     }
-
     return errors;
   };
 
-  const handleSubmit = async() => {
+  const handleSubmit = async () => {
     const auth = getAuth();
-    try{
+    try {
       setSent(true);
-      await signInWithEmailAndPassword(auth,email, password);
-      history.push('/');
+      await signInWithEmailAndPassword(auth, email, password);
+      if (auth.currentUser) {
+        fetchDatasets();
+      }
+      history.push('/dashboard');
     }
-    catch(e) {
-    alert('Email or password is wrong! Try Again');
-    setSent(false);
+    catch (e) {
+      alert('Email or password is wrong! Try Again');
+      setSent(false);
     }
 
   };
 
- const signInWithGoogle = async () => {
+  const signInWithGoogle = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
-    try{
-     await signInWithPopup(auth, provider);
-     history.push('/');
+    try {
+      await signInWithPopup(auth, provider);
+      history.push('/dashboard');
     }
-    catch(e){
+    catch (e) {
       alert(e);
     }
 
-}
+  }
 
   return (
     <React.Fragment>
@@ -73,13 +75,13 @@ function SignIn() {
           </Typography>
           <Typography variant="body2" align="center">
             {'Not a member yet? '}
-            <Direct to="/sign-up" style={ {textDecoration: 'none', color:'white'} }>
-            <Link
-              align="center"
-              underline="always"
-            >
-              Sign Up here
-            </Link>
+            <Direct to="/sign-up" style={{ textDecoration: 'none', color: 'white' }}>
+              <Link
+                align="center"
+                underline="always"
+              >
+                Sign Up here
+              </Link>
             </Direct>
           </Typography>
         </React.Fragment>
@@ -87,18 +89,18 @@ function SignIn() {
           onSubmit={handleSubmit}
           subscription={{ submitting: true }}
           validate={validate}
-        > 
+        >
           {({ handleSubmit: handleSubmit2, submitting }) => (
-            <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>    
-                    <TextField fullWidth label="Email" name='email'
-                      value = {email}
-                      onChange = {(e) => setEmailValue(e.target.value)}>
-              
-                    </TextField>
+            <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>
+              <TextField fullWidth label="Email" name='email'
+                value={email}
+                onChange={(e) => setEmailValue(e.target.value)}>
 
-                    <TextField type='password' fullWidth label="Password" margin="normal" name='password' value = {password}
-                      onChange = {(e) => setPasswordValue(e.target.value)}>
-                    </TextField>
+              </TextField>
+
+              <TextField type='password' fullWidth label="Password" margin="normal" name='password' value={password}
+                onChange={(e) => setPasswordValue(e.target.value)}>
+              </TextField>
               <FormSpy subscription={{ submitError: true }}>
                 {({ submitError }) =>
                   submitError ? (
@@ -134,10 +136,10 @@ function SignIn() {
           )}
         </Form>
         <Typography align="center">
-        <Direct to="/forgot-password" style={ {textDecoration: 'none', color:'white'} }>
-          <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
-            Forgot password?
-          </Link>
+          <Direct to="/forgot-password" style={{ textDecoration: 'none', color: 'white' }}>
+            <Link underline="always" href="/premium-themes/onepirate/forgot-password/">
+              Forgot password?
+            </Link>
           </Direct>
         </Typography>
       </AppForm>

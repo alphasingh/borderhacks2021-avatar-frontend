@@ -17,7 +17,7 @@ export default function ProductHero() {
       }}
     >
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Upgrade your Sundays
+        Help us choose the quality data!
       </Typography>
       <Typography
         color="inherit"
@@ -25,7 +25,7 @@ export default function ProductHero() {
         variant="h5"
         sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}
       >
-        Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+        Join us today and share your valuable feedback regarding different sectors in Windsor Essex region.
       </Typography>
       <Direct to='/sign-up' style={ {textDecoration: 'none', color:'white'} }>
       <Button 
