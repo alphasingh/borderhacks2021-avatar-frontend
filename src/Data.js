@@ -13,9 +13,9 @@ const Data = ({ match, dataset }) => {
       return item;
     }
   })
-  final_result = final_result.filter(function( element ) {
-    return element !== undefined;
- });
+//   final_result = final_result.filter(function( element ) {
+//     return element !== undefined;
+//  });
   console.log("final result", final_result);
   return (
     <>

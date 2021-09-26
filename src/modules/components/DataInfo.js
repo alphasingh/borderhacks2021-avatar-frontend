@@ -31,6 +31,8 @@ export default function DataInfo({dataset}) {
 
   const[comment,setComment] = useState('');
 
+  const[commentList, setCommentList]= useState(dataset.comments);
+
 
 
   console.log("dataset", dataset);
@@ -75,6 +77,9 @@ export default function DataInfo({dataset}) {
           'Authorization': 'bearer ' + token
         }
       });
+
+      var newCommentList = [...commentList, {description:comment, email:auth.currentUser.email}];
+      return setCommentList(newCommentList);
       
   }
   return (
@@ -111,19 +116,20 @@ export default function DataInfo({dataset}) {
 
          <div style={{ padding: 14 }}>
       <h1>Comments</h1>
-      {dataset.comments.map((item)=>{
-          console.log("item",item);
+
+      {commentList.map((item)=>{
+          console.log("commentList",item);
           return (<Paper style={{ padding: "10px 5px" }}>
           <Grid container wrap="nowrap" spacing={2}>
             <Grid item>
             </Grid>
             <Grid justifyContent="left" item xs zeroMinWidth>
-              <h4 style={{ margin: 0, textAlign: "left" }}>{item.userName}</h4>
+              <h4 style={{ margin: 0, textAlign: "left" }}>{item.email}</h4>
               <p style={{ textAlign: "left" }}>
                   {item.description}
               </p>
               <p style={{ textAlign: "left", color: "gray" }}>
-                posted on {item.created.slice(0,10)}
+                posted on {item.created}
               </p>
             </Grid>
           </Grid>
