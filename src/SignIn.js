@@ -56,10 +56,15 @@ function SignIn({ fetchDatasets }) {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     try {
+      setSent(true);
       await signInWithPopup(auth, provider);
+      if (auth.currentUser) {
+        fetchDatasets();
+      }
       history.push('/dashboard');
     }
     catch (e) {
+      setSent(false);
       alert(e);
     }
 
