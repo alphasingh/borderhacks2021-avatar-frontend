@@ -1,8 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import 'firebase/compat/auth';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCbSHG3f7CpGgJLF9eotU5mKr0Mp94-L-k",
+  authDomain: "helloworld-dfd61.firebaseapp.com",
+  projectId: "helloworld-dfd61",
+  storageBucket: "helloworld-dfd61.appspot.com",
+  messagingSenderId: "712634070982",
+  appId: "1:712634070982:web:b52750390ca696948ba4c7"
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
+console.log(app);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -11,7 +27,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
